@@ -5,3 +5,4 @@ beautifulsoup4
 pdfplumber
 firebase-admin
 fastapi-utils
+typing_inspect
