@@ -26,9 +26,24 @@ app.add_middleware(
 )
 
 # Inicializa Firebase
-cred = credentials.Certificate("chave-firebase.json")
+import os
+import json
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Pega o JSON da variável de ambiente
+firebase_creds_json = os.getenv("FIREBASE_CREDENTIALS")
+
+# Converte string JSON em dicionário
+cred_dict = json.loads(firebase_creds_json)
+
+# Inicializa o Firebase com as credenciais do dicionário
+cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
+
+# Inicializa o Firestore
 db = firestore.client()
+
 
 def enviar_email(destinatario, assunto, corpo, remetente, senha):
     msg = MIMEMultipart("alternative")
