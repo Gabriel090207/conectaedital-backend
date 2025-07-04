@@ -12,6 +12,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import re
 from fastapi_utils.tasks import repeat_every
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -200,3 +202,6 @@ async def cadastrar_usuario(dados: UsuarioInput):
     })
     return {"msg": "Cadastro realizado com sucesso!"}
 
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
